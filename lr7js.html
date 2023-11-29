@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Ball</title>
+    <link rel="stylesheet" href="media.css">
+    <style>
+        body {
+            background-image: linear-gradient(rgba(91, 8, 102, 0.5), rgba(11, 41, 151, 0.5));
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .content-container {
+            text-align: center;
+            background: rgba(22, 22, 22, 0.33);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+
+        input {
+            width: 50%;
+            padding: 10px;
+            font-size: 1.2em;
+        }
+
+        button {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+
+        button:hover {
+            background-color: #016b5e;
+        }
+
+        p {
+            font-size: 1.2em;
+        }
+
+        #BallImage {
+           
+            display: block;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        #answerText {
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #ffffff;
+            font-size: 34px;
+            -webkit-text-stroke: 10px rgba(99, 25, 210, 0.326);
+        }
+             
+
+@media (max-width: 972px) {
+
+}
+
+
+
+.shake {
+        animation: shake 0.5s ease infinite;
+    }
+    @keyframes shake {
+        0% {
+                transform: translate(22px, 0);
+            }
+            25% {
+                transform: translate(-5px, 20px);
+            }
+            50% {
+                transform: translate(15px, 0);
+            }
+            75% {
+                transform: translate(-15px, 0);
+            }
+            100% {
+                transform: translate(51px, 0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+       
+        const container = document.createElement("div");
+        container.className = "content-container";
+
+        const heading = document.createElement("h1");
+        heading.textContent = "Magic Ball";
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Введіть ваше питання";
+
+        const button = document.createElement("button");
+        button.textContent = "Запитати";
+
+        const resultP = document.createElement("p");
+
+        const image = document.createElement("img");
+        image.id = "BallImage";
+        image.alt = "Магічний шар";
+        image.src = "https://fanzon-portal.ru/upload/iblock/3d0/3d0b59e0d87c9d049807f330871f8aaa.jpg";
+
+        const answerP = document.createElement("p");
+        answerP.id = "answerText";
+
+        container.appendChild(heading);
+        container.appendChild(input);
+        container.appendChild(button);
+        container.appendChild(resultP);
+        container.appendChild(image);
+        container.appendChild(answerP);
+
+        document.body.appendChild(container);
+
+        const answers = [
+            "Так",
+            "Ні",
+            "Можливо",
+            "Відповім завтра",
+            "Запитайте ще раз",
+            "Покладися на власні почуття",
+            "Попробуй знову пізніше",
+            "Це сумнівне", 
+            "Не в цьому житті",
+            "Ні в якому разі"
+        ];
+
+        function getAnswer() {
+            const randomIndex = Math.floor(Math.random() * answers.length);
+            return answers[randomIndex];
+        }
+
+        const inputField = document.querySelector('input');
+        const answerButton = document.querySelector('button');
+        const answerText = document.querySelector('#answerText');
+
+        answerButton.addEventListener("click", () => {
+            const question = inputField.value;
+            if (question.trim() !== "") {
+                const randomAnswer = getAnswer();
+                answerText.textContent = randomAnswer;
+                image.classList.add("shake");
+                 setTimeout(() => {
+                image.classList.remove("shake");
+            }, 500);
+            } else {
+                answerText.textContent = "Будь ласка, введіть питання.";
+            }
+        });
+
+        inputField.addEventListener("input", () => {
+            answerText.textContent = "";
+        });
+    </script>
+</body>
+</html>
